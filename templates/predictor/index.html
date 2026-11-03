@@ -1,0 +1,16 @@
+{% load static %}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Smart Crop Prediction</title><link rel="stylesheet" href="{% static 'css/style.css' %}"></head><body>
+<header class="topbar"><a class="brand" href="{% url 'home' %}">🌱 Smart Crop</a><nav><a href="{% url 'home' %}">Predict</a><a href="{% url 'dashboard' %}">Dashboard</a></nav></header>
+<main class="container"><section class="hero"><p class="eyebrow">MACHINE LEARNING · AGRICULTURE</p><h1>Find a crop recommendation for your field</h1><p>Enter soil nutrient and weather readings to get a data-based crop suggestion.</p></section>
+{% if errors %}<div class="alert">{% for error in errors %}<p>{{ error }}</p>{% endfor %}</div>{% endif %}
+{% if not model_ready %}<div class="notice">Model not trained yet. Add the dataset and follow the README training steps.</div>{% endif %}
+<form class="panel form-grid" method="post" action="{% url 'predict_crop' %}">{% csrf_token %}
+<label>Nitrogen (N)<span>kg/ha</span><input name="N" type="number" min="0" step="any" value="{{ values.N|default:'' }}" required></label>
+<label>Phosphorus (P)<span>kg/ha</span><input name="P" type="number" min="0" step="any" value="{{ values.P|default:'' }}" required></label>
+<label>Potassium (K)<span>kg/ha</span><input name="K" type="number" min="0" step="any" value="{{ values.K|default:'' }}" required></label>
+<label>Temperature<span>°C</span><input name="temperature" type="number" step="any" value="{{ values.temperature|default:'' }}" required></label>
+<label>Humidity<span>%</span><input name="humidity" type="number" min="0" max="100" step="any" value="{{ values.humidity|default:'' }}" required></label>
+<label>Soil pH<span>0–14</span><input name="ph" type="number" min="0" max="14" step="any" value="{{ values.ph|default:'' }}" required></label>
+<label class="wide">Rainfall<span>mm</span><input name="rainfall" type="number" min="0" step="any" value="{{ values.rainfall|default:'' }}" required></label>
+<button class="button wide" type="submit">Predict suitable crop <span>→</span></button></form>
+<p class="fineprint">Use recent soil-test and local weather values. This educational model cannot guarantee yield or suitability.</p></main><footer>Smart Crop Prediction · Django + scikit-learn</footer></body></html>

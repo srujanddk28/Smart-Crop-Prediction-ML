@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+.env
+data/*.csv
+!data/README.md
+artifacts/*.joblib
+artifacts/*.pkl
+artifacts/metrics.json
+static/generated/*.png

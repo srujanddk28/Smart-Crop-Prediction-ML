@@ -1,0 +1,1 @@
+Put your permitted dataset here as Crop_recommendation.csv. Required columns: N, P, K, temperature, humidity, ph, rainfall, label. The training script uses a stratified 80/20 split. Dataset provenance and license should be recorded before redistribution.
